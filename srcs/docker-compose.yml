@@ -1,17 +1,12 @@
 version: '3'
-services:
-	mongodb:
-		image: mongo
-		ports:
-			- 27017:27017
-		volumes:
-			- db-data:/var/lib/mysql/data
-		environment:
-			- MONGO_INITDB_ROOT_USERNAME=admin
-	mongo-express:
-		ports:
-			- 8080:8080
-		environment:
-			- ME_CONFIG_MONGODB_ADMINUSERNAME=admin
 volumes:
-	db-data
+ html: {}
+services:
+ nginx:
+  build: ./requirements/nginx
+  ports:
+   - 443:443
+  volumes:
+   - ./requirements/nginx/html:/usr/share/nginx/html
+  environment:
+   - NGINX_TEST_ENV=true
