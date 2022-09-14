@@ -1,2 +1,6 @@
 all:
-	docker-compose -f ./srcs/docker-compose.yml up --build
+	@echo "build & run"
+	@cd srcs && \
+	docker-compose up --build -d && \
+	cd .. && \
+	echo "running..."

@@ -1,12 +1,53 @@
 version: '3'
+
+networks:
+ inception: {}
+
 volumes:
  html: {}
+# mariadb_data: {}
+# wordpress_data: {}
+
 services:
  nginx:
-  build: ./requirements/nginx
+  build: ${REQUIREMENTS_PATH}/nginx
   ports:
    - 443:443
+  container_name: NGINX
+  networks:
+   - inception
   volumes:
-   - ./requirements/nginx/html:/usr/share/nginx/html
+   - ${REQUIREMENTS_PATH}/nginx/html:/usr/share/nginx/html
   environment:
    - NGINX_TEST_ENV=true
+   - DB_NAME=${DB_NAME}
+   - DB_USER=${DB_USER}
+   - DB_PASSWORD=${DB_PASSWORD}
+
+# mariadb:
+#  build: ${REQUIREMENTS_PATH}/mariadb
+#  ports:
+#   - 3306:3306
+#  networks:
+#   - inception
+#  volumes:
+#   - ${DATA_PATH}mariadb:/var/www/html
+#  environment:
+#   - MARIADB_TEST_ENV=true
+#   - DB_NAME=${DB_NAME}
+#   - DB_USER=${DB_USER}
+#   - DB_PASSWORD=${DB_PASSWORD}
+
+# wordpress:
+#  build: ${REQUIREMENTS_PATH}/wordpress
+#  ports:
+#   - 9000:9000
+#  networks:
+#   - inception
+#  volumes:
+#   - ${DATA_PATH}wordpress:/var/www/html
+#  environment:
+#   - WORDPRESS_TEST_ENV=true
+#   - DB_NAME=${DB_NAME}
+#   - DB_USER=${DB_USER}
+#   - DB_PASSWORD=${DB_PASSWORD}
