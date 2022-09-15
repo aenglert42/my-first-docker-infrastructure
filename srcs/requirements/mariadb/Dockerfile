@@ -1,14 +1,29 @@
 FROM debian:buster
 
-RUN apt-get update -y
-
-RUN apt-get install mariadb-server
+RUN apt-get update -y && \
+#	apt-get install mysql-server -y \
+	apt-get install mariadb-server -y
 #RUN mysql_secure_installation
-#RUN systemctl status mariadb
+
+ARG DB_NAME=${DB_NAME}
+ARG DB_USER=${DB_USER}
+ARG DB_PASSWORD=${DB_PASSWORD}
+ARG DB_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+
 # Create Database and User
-#	RUN mysql -u root -p
-#	RUN CREATE DATABASE wordpress_database;
-#	RUN CREATE USER 'username'@'localhost' IDENTIFIED BY 'password';
-#	RUN GRANT ALL PRIVILEGES ON * . * TO 'username'@'localhost';
-#	RUN FLUSH PRIVILEGES;
-#Exit MariaDB by pressing Ctrl–d.
+#RUN service mysql start
+#RUN mariadb -u root -e "CREATE DATABASE ${DB_NAME};"
+###RUN mariadb -u root -e "SHOW DATABASES";
+###RUN mariadb -u root -e "CREATE USER '${DB_USER}'@'%' IDENTIFIED BY '${DB_PASSWORD}';"
+## RUN mariadb -u root -e "SELECT User FROM mysql.user;"
+###RUN mariadb -u root -e "USE ${DB_NAME};"
+#RUN mariadb -u root -e "GRANT ALL ON ${DB_NAME}.* TO '${DB_USER}'@'%' IDENTIFIED BY '${DB_PASSWORD}' WITH GRANT OPTION;"
+###RUN mariadb -u root -e "SHOW GRANTS";
+#RUN mariadb -u root -e "ALTER USER 'root'@'localhost' identified by '${DB_ROOT_PASSWORD}';"
+
+COPY ./conf/script.sh /script.sh
+RUN bash ./script.sh
+
+EXPOSE 3306
+
+CMD exec mysqld_safe

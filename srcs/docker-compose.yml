@@ -5,7 +5,7 @@ networks:
 
 volumes:
  html: {}
-# mariadb_data: {}
+ mariadb_data: {}
 # wordpress_data: {}
 
 services:
@@ -23,25 +23,30 @@ services:
    - DB_NAME=${DB_NAME}
    - DB_USER=${DB_USER}
    - DB_PASSWORD=${DB_PASSWORD}
+   - DB_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
 
-# mariadb:
-#  build: ${REQUIREMENTS_PATH}/mariadb
-#  ports:
-#   - 3306:3306
-#  networks:
-#   - inception
-#  volumes:
-#   - ${DATA_PATH}mariadb:/var/www/html
-#  environment:
-#   - MARIADB_TEST_ENV=true
-#   - DB_NAME=${DB_NAME}
-#   - DB_USER=${DB_USER}
-#   - DB_PASSWORD=${DB_PASSWORD}
+ mariadb:
+  build:
+   context: ${REQUIREMENTS_PATH}/mariadb
+   args:
+    - DB_NAME=${DB_NAME}
+    - DB_USER=${DB_USER}
+    - DB_PASSWORD=${DB_PASSWORD}
+    - DB_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
+  ports:
+   - 3306:3306
+  container_name: MARIADB
+  networks:
+   - inception
+  volumes:
+   - ${DATA_PATH}mariadb:/var/www/html
+
 
 # wordpress:
 #  build: ${REQUIREMENTS_PATH}/wordpress
 #  ports:
 #   - 9000:9000
+#  container_name: WORDPRESS
 #  networks:
 #   - inception
 #  volumes:
@@ -51,3 +56,4 @@ services:
 #   - DB_NAME=${DB_NAME}
 #   - DB_USER=${DB_USER}
 #   - DB_PASSWORD=${DB_PASSWORD}
+#   - DB_ROOT_PASSWORD=${DB_ROOT_PASSWORD}

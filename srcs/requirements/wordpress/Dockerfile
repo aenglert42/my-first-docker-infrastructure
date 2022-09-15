@@ -8,7 +8,7 @@ RUN apt-get update -y
 RUN apt-get install php php-mysql -y
 
 # Install mariadb client
-RUN apt-get install mariadb-client
+RUN apt-get install mariadb-client -y
 
 WORKDIR /var/www/html
 #don't use ADD, use wget or curl instead
