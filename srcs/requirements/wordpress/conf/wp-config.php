@@ -26,7 +26,7 @@ define( 'DB_NAME', 'database_name_here' ); #this
 define( 'DB_USER', 'username_here' ); #this
 
 /** Database password */
-define( 'DB_PASSWORD', 'password_here' ); #this
+define( 'DB_USER_PASSWORD', 'password_here' ); #this
 
 /** Database hostname */
 define( 'DB_HOST', 'localhost' );
