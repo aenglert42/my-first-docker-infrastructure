@@ -1,8 +1,11 @@
 FROM debian:buster
 
-RUN apt-get update -y && \
-#	apt-get install mysql-server -y \
-	apt-get install mariadb-server -y
+EXPOSE 3306
+
+RUN apt-get update -y && apt-get install -y \
+#	mysql-server \
+	mariadb-server
+	
 #RUN mysql_secure_installation
 
 ARG DB_NAME=${DB_NAME}
@@ -21,9 +24,7 @@ ARG DB_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
 ###RUN mariadb -u root -e "SHOW GRANTS";
 #RUN mariadb -u root -e "ALTER USER 'root'@'localhost' identified by '${DB_ROOT_PASSWORD}';"
 
-COPY ./conf/script.sh /script.sh
-RUN bash ./script.sh
+COPY ./tools/db_setup.sh /db_setup.sh
+RUN bash ./db_setup.sh
 
-EXPOSE 3306
-
-CMD exec mysqld_safe
+CMD ["mysqld_safe"]
