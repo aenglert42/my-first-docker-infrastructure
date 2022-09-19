@@ -1,3 +1,6 @@
+# docker exec -it WORDPRESS /bin/bash
+# mysql -h mariadb -u user -p
+
 FROM debian:buster
 
 EXPOSE 9000
@@ -5,7 +8,7 @@ EXPOSE 9000
 RUN apt-get update -y && apt-get install -y \
 	php7.3-fpm \
 	php7.3-mysql \
-#	mariadb-client \
+	mariadb-client \
 	wget
 
 COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d

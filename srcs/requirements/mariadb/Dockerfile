@@ -24,6 +24,11 @@ ARG DB_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
 ###RUN mariadb -u root -e "SHOW GRANTS";
 #RUN mariadb -u root -e "ALTER USER 'root'@'localhost' identified by '${DB_ROOT_PASSWORD}';"
 
+COPY ./conf/50-server.cnf /etc/mysql/mariadb.conf.d/50-server.cnf
+
+#RUN rm /etc/mysql/mariadb.conf.d/50-server.cnf
+#COPY conf/50-server.cnf /etc/mysql/mariadb.conf.d
+
 COPY ./tools/db_setup.sh /db_setup.sh
 RUN bash ./db_setup.sh
 

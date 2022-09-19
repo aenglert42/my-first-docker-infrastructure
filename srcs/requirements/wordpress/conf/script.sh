@@ -4,7 +4,7 @@ cd /var/www/html
 
 #wp config create --allow-root
 
-wp core config --dbhost=$DB_HOSTNAME \
+wp core config --dbhost=$DB_HOST \
 				--dbname=$DB_NAME \
 				--dbuser=$DB_USER \
 				--dbpass=$DB_USER_PASSWORD \
