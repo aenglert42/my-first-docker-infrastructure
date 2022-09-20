@@ -7,32 +7,31 @@
 # sudo echo "127.0.0.1       localhost       aenglert.42.fr" >> /etc/hosts
 
 all:
-#	mkdir /home/data
-#	mkdir /home/data/mariadb
-#	mkdir /home/data/wordpress
+	sudo hostsed add 127.0.0.1 aenglert.42.fr
+	sudo mkdir -p /home/aenglert/data/mariadb /home/aenglert/data/wordpress
 	@echo "build & run"
 	@cd srcs && \
-	docker-compose up --build -d && \
+	sudo docker-compose up --build -d && \
 	cd .. && \
 	echo "running..."
 
 stop:
 	@echo "stopping..."
 	@cd srcs && \
-	docker-compose down && \
+	sudo docker-compose down && \
 	cd .. && \
 	echo "stopped"
 
 clean: stop
 	@echo "cleaning..."
 	@cd srcs && \
-	docker-compose down --rmi all -v && \
+	sudo docker-compose down --rmi all -v && \
 	cd .. && \
 	echo "cleaned"
 
 fclean: clean
-	docker system prune -a
+	sudo docker system prune -a
 	rm -rf /home/data/mariadb/*
 	rm -rf /home/data/wordpress/*
-
+	sudo hostsed rm 127.0.0.1 aenglert.42.fr
 re: fclean all
