@@ -84,3 +84,12 @@ nuke:
 	sudo docker rmi -f $$(sudo docker images -qa); \
 	sudo docker volume rm $$(sudo docker volume ls -q); \
 	sudo docker network rm $$(sudo docker network ls -q) 2>/dev/null
+
+nuke2:
+	sudo rm -rf $(DB_DATA_PATH)*
+	sudo rm -rf $(WP_DATA_PATH)*
+	sudo docker stop $$(sudo docker ps -qa); \
+	sudo docker rm $$(sudo docker ps -qa); \
+	sudo docker rmi -f $$(sudo docker images -qa); \
+	sudo docker volume rm $$(sudo docker volume ls -q); \
+	sudo docker network rm $$(sudo docker network ls -q) 2>/dev/null
