@@ -1,6 +1,12 @@
+LOGIN=aenglert
+DOMAIN=$(LOGIN).42.fr
+DATA_PATH=/home/$(LOGIN)/data/
+MARIADB_PATH=$(DATA_PATH)mariadb/
+WORDPRESS_PATH=$(DATA_PATH)wordpress/
+
 all:
-	sudo hostsed add 127.0.0.1 aenglert.42.fr
-	sudo mkdir -p /home/aenglert/data/mariadb /home/aenglert/data/wordpress
+	sudo hostsed add 127.0.0.1 $(DOMAIN)
+	sudo mkdir -p $(MARIADB_PATH) $(WORDPRESS_PATH)
 	@echo "build & run"
 	@cd srcs && \
 	sudo docker-compose up --build -d && \
@@ -23,9 +29,9 @@ clean: stop
 
 fclean: clean
 	sudo docker system prune -a
-	rm -rf /home/data/mariadb/*
-	rm -rf /home/data/wordpress/*
-	sudo hostsed rm 127.0.0.1 aenglert.42.fr
+	rm -rf $(MARIADB_PATH)*
+	rm -rf $(WORDPRESS_PATH)*
+	sudo hostsed rm 127.0.0.1 $(DOMAIN)
 
 re: fclean all
 
