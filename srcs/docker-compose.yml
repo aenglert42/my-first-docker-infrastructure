@@ -8,12 +8,12 @@ volumes:
  mariadb_data:
   driver_opts:
    type: none
-   device: ${DATA_PATH}mariadb
+   device: ${DB_DATA_PATH}
    o: bind
  wordpress_data:
   driver_opts:
    type: none
-   device: ${DATA_PATH}wordpress
+   device: ${WP_DATA_PATH}
    o: bind
 
 services:
@@ -23,7 +23,7 @@ services:
    - 443:443
   container_name: NGINX
   networks:
-   - inception
+   - ${NETWORK}
   volumes:
    - wordpress_data:/var/www/html
   depends_on:
@@ -42,7 +42,7 @@ services:
    - 3306:3306
   container_name: MARIADB
   networks:
-   - inception
+   - ${NETWORK}
   volumes:
    - mariadb_data:/var/lib/mysql
   restart: unless-stopped
@@ -54,7 +54,7 @@ services:
    - 9000:9000
   container_name: WORDPRESS
   networks:
-   - inception
+   - ${NETWORK}
   volumes:
    - wordpress_data:/var/www/html
   depends_on:
