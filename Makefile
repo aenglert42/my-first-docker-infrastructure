@@ -71,8 +71,8 @@ clean: stop
 
 fclean: clean
 	sudo docker system prune -a
-	rm -rf $(DB_DATA_PATH)*
-	rm -rf $(WP_DATA_PATH)*
+	sudo rm -rf $(DB_DATA_PATH)*
+	sudo rm -rf $(WP_DATA_PATH)*
 	sudo hostsed rm 127.0.0.1 $(DOMAIN_NAME)
 
 re: fclean all
