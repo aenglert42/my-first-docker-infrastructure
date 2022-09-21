@@ -20,12 +20,12 @@ services:
  nginx:
   build: ${REQUIREMENTS_PATH}/nginx
   ports:
-   - 443:443
-  container_name: NGINX
+   - ${NGINX_PORT}:${NGINX_PORT}
+  container_name: ${NGINX_CONTAINER_NAME}
   networks:
    - ${NETWORK}
   volumes:
-   - wordpress_data:/var/www/html
+   - wordpress_data:${WP_VOLUME}
   depends_on:
    - wordpress
   restart: unless-stopped
@@ -39,24 +39,24 @@ services:
     - DB_USER_PASSWORD=${DB_USER_PASSWORD}
     - DB_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
   ports:
-   - 3306:3306
-  container_name: MARIADB
+   - ${MARIADB_PORT}:${MARIADB_PORT}
+  container_name: ${MARIADB_CONTAINER_NAME}
   networks:
    - ${NETWORK}
   volumes:
-   - mariadb_data:/var/lib/mysql
+   - mariadb_data:${DB_VOLUME}
   restart: unless-stopped
 
 
  wordpress:
   build: ${REQUIREMENTS_PATH}/wordpress
   ports:
-   - 9000:9000
-  container_name: WORDPRESS
+   - ${WORDPRESS_PORT}:${WORDPRESS_PORT}
+  container_name: ${WORDPRESS_CONTAINER_NAME}
   networks:
    - ${NETWORK}
   volumes:
-   - wordpress_data:/var/www/html
+   - wordpress_data:${WP_VOLUME}
   depends_on:
    - mariadb
   environment:
