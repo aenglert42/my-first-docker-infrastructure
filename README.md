@@ -62,6 +62,16 @@ on computer with SSH Key:
 ```cat ~/.ssh/id_rsa | ssh remote-computer-username@remote-computer-IP-address 'umask 0077; mkdir -p .ssh; cat > .ssh/id_rsa && echo "Private Key copied"'```
 ```cat ~/.ssh/id_rsa.pub | ssh remote-computer-username@remote-computer-IP-address 'umask 0077; mkdir -p .ssh; cat > .ssh/id_rsa.pub && echo "Public Key copied"'```
 
+## Useful commands
+
+systemctl restart docker
+to debug use ```docker run --rm -it 044e1532c690 /bin/sh``` (044e1532c690 would be the last successfully created image layer)
+mariadb -u root -e "SHOW DATABASES";
+mariadb -u root -e "SELECT User FROM mysql.user;"
+mariadb -u root -e "SHOW GRANTS";
+docker exec -it WORDPRESS /bin/bash
+mysql -h mariadb -u user -p
+
 ## Evaluation
 
 ### Simple Setup
