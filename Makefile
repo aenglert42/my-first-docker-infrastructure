@@ -34,4 +34,12 @@ fclean: clean
 	rm -rf /home/data/mariadb/*
 	rm -rf /home/data/wordpress/*
 	sudo hostsed rm 127.0.0.1 aenglert.42.fr
+
 re: fclean all
+
+nuke:
+	sudo docker stop $$(sudo docker ps -qa); \
+	sudo docker rm $$(sudo docker ps -qa); \
+	sudo docker rmi -f $$(sudo docker images -qa); \
+	sudo docker volume rm $$(sudo docker volume ls -q); \
+	sudo docker network rm $$(sudo docker network ls -q) 2>/dev/null
