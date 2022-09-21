@@ -37,6 +37,7 @@ fclean: clean
 
 re: fclean all
 
+# extra '$' needed to let the shell do the command substitution
 nuke:
 	sudo docker stop $$(sudo docker ps -qa); \
 	sudo docker rm $$(sudo docker ps -qa); \
