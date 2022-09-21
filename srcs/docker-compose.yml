@@ -1,5 +1,3 @@
-# to debug use docker run --rm -it 044e1532c690 sh (044e1532c690 would be the last successfully created image layer)
-
 version: '3'
 
 networks:

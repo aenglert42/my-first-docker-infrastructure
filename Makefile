@@ -1,11 +1,3 @@
-# https://shisho.dev/blog/posts/docker-remove-cheatsheet/
-# docker stop $(docker ps -a -q) && docker rm $(docker ps -a -q)
-# docker rmi $(docker images -a -q)
-
-# systemctl restart docker
-
-# sudo echo "127.0.0.1       localhost       aenglert.42.fr" >> /etc/hosts
-
 all:
 	sudo hostsed add 127.0.0.1 aenglert.42.fr
 	sudo mkdir -p /home/aenglert/data/mariadb /home/aenglert/data/wordpress

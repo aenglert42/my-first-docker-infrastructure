@@ -2,8 +2,6 @@
 
 cd /var/www/html
 
-#wp config create --allow-root
-
 wp core config --dbhost=$DB_HOST \
 				--dbname=$DB_NAME \
 				--dbuser=$DB_USER \
@@ -19,4 +17,4 @@ wp core install --title=$WP_TITLE \
 
 wp user create $WP_USER $WP_USER_MAIL --role=author --user_pass=$WP_USER_PASSWORD --allow-root
 
-php-fpm7.3 --nodaemonize #--allow-root
+php-fpm7.3 --nodaemonize

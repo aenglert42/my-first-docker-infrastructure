@@ -1,6 +1,3 @@
-# docker exec -it WORDPRESS /bin/bash
-# mysql -h mariadb -u user -p
-
 FROM debian:buster
 
 EXPOSE 9000
@@ -21,11 +18,6 @@ RUN wget http://wordpress.org/latest.tar.gz && \
 	rm -rf wordpress && \
 	rm -f latest.tar.gz && \
 	rm -f index.html
-
-#COPY ./html/index.html ./index.html
-#config file wp-config.php
-#COPY ./conf/wp-config.php ./wp-config.php
-#RUN cp wp-config-sample.php wp-config.php
 
 RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 RUN chmod +x wp-cli.phar
