@@ -11,6 +11,8 @@ RUN apt-get update -y && apt-get install -y \
 COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d
 RUN mkdir /run/php
 
+ARG WP_VOLUME=${WP_VOLUME}
+
 # WORKDIR /var/www/html
 WORKDIR ${WP_VOLUME}
 

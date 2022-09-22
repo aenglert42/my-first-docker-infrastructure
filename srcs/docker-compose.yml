@@ -28,6 +28,9 @@ services:
    - wordpress_data:${WP_VOLUME}
   depends_on:
    - wordpress
+  environment:
+   - CERT=${CERT}
+   - KEY=${KEY}
   restart: unless-stopped
 
  mariadb:
@@ -50,9 +53,9 @@ services:
 
  wordpress:
   build:
-   cibtext: ${REQUIREMENTS_PATH}/wordpress
+   context: ${REQUIREMENTS_PATH}/wordpress
    args:
-    - ARG WP_VOLUME=${WP_VOLUME}
+    - WP_VOLUME=${WP_VOLUME}
   ports:
    - ${WORDPRESS_PORT}:${WORDPRESS_PORT}
   container_name: ${WORDPRESS_CONTAINER_NAME}

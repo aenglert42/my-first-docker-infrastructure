@@ -34,7 +34,7 @@ WP_ADMIN=god
 WP_ADMIN_MAIL=god@example.com
 WP_ADMIN_PASSWORD=password
 
-all: env mariadb_conf php
+all: env mariadb_conf php_conf
 	sudo hostsed add 127.0.0.1 $(DOMAIN_NAME)
 	sudo mkdir -p $(DB_DATA_PATH) $(WP_DATA_PATH)
 	@echo "build & run"
@@ -42,40 +42,6 @@ all: env mariadb_conf php
 	sudo docker-compose up --build -d && \
 	cd .. && \
 	echo "running..."
-
-env:
-	@echo "\
-	LOGIN=$(LOGIN)\n\
-	DOMAIN_NAME=$(DOMAIN_NAME)\n\
-	NETWORK=$(NETWORK)\n\
-	DATA_PATH=$(DATA_PATH)\n\
-	REQUIREMENTS_PATH=$(REQUIREMENTS_PATH)\n\
-	CERT=$(CERT)\n\
-	KEY=$(KEY)\n\
-	NGINX_CONTAINER_NAME=$(NGINX_CONTAINER_NAME)\n\
-	NGINX_PORT=$(NGINX_PORT)\n\
-	MARIADB_CONTAINER_NAME=$(MARIADB_CONTAINER_NAME)\n\
-	MARIADB_PORT=$(MARIADB_PORT)\n\
-	WORDPRESS_CONTAINER_NAME=$(WORDPRESS_CONTAINER_NAME)\n\
-	WORDPRESS_PORT=$(WORDPRESS_PORT)\n\
-	DB_DATA_PATH=$(DB_DATA_PATH)\n\
-	DB_VOLUME=$(DB_VOLUME)\n\
-	DB_HOST=$(DB_HOST)\n\
-	DB_NAME=$(DB_NAME)\n\
-	DB_USER=$(DB_USER)\n\
-	DB_USER_PASSWORD=$(DB_USER_PASSWORD)\n\
-	DB_ROOT_PASSWORD=$(DB_ROOT_PASSWORD)\n\
-	WP_DATA_PATH=$(WP_DATA_PATH)\n\
-	WP_VOLUME=$(WP_VOLUME)\n\
-	WP_TITLE=$(WP_TITLE)\n\
-	WP_URL=$(WP_URL)\n\
-	WP_USER=$(WP_USER)\n\
-	WP_USER_MAIL=$(WP_USER_MAIL)\n\
-	WP_USER_PASSWORD=$(WP_USER_PASSWORD)\n\
-	WP_ADMIN=$(WP_ADMIN)\n\
-	WP_ADMIN_MAIL=$(WP_ADMIN_MAIL)\n\
-	WP_ADMIN_PASSWORD=$(WP_ADMIN_PASSWORD)\n\
-	" > ./srcs/.env
 
 stop:
 	@echo "stopping..."
@@ -115,6 +81,40 @@ nuke2:
 	sudo docker rmi -f $$(sudo docker images -qa); \
 	sudo docker volume rm $$(sudo docker volume ls -q); \
 	sudo docker network rm $$(sudo docker network ls -q) 2>/dev/null
+
+env:
+	@echo "\
+	LOGIN=$(LOGIN)\n\
+	DOMAIN_NAME=$(DOMAIN_NAME)\n\
+	NETWORK=$(NETWORK)\n\
+	DATA_PATH=$(DATA_PATH)\n\
+	REQUIREMENTS_PATH=$(REQUIREMENTS_PATH)\n\
+	CERT=$(CERT)\n\
+	KEY=$(KEY)\n\
+	NGINX_CONTAINER_NAME=$(NGINX_CONTAINER_NAME)\n\
+	NGINX_PORT=$(NGINX_PORT)\n\
+	MARIADB_CONTAINER_NAME=$(MARIADB_CONTAINER_NAME)\n\
+	MARIADB_PORT=$(MARIADB_PORT)\n\
+	WORDPRESS_CONTAINER_NAME=$(WORDPRESS_CONTAINER_NAME)\n\
+	WORDPRESS_PORT=$(WORDPRESS_PORT)\n\
+	DB_DATA_PATH=$(DB_DATA_PATH)\n\
+	DB_VOLUME=$(DB_VOLUME)\n\
+	DB_HOST=$(DB_HOST)\n\
+	DB_NAME=$(DB_NAME)\n\
+	DB_USER=$(DB_USER)\n\
+	DB_USER_PASSWORD=$(DB_USER_PASSWORD)\n\
+	DB_ROOT_PASSWORD=$(DB_ROOT_PASSWORD)\n\
+	WP_DATA_PATH=$(WP_DATA_PATH)\n\
+	WP_VOLUME=$(WP_VOLUME)\n\
+	WP_TITLE=$(WP_TITLE)\n\
+	WP_URL=$(WP_URL)\n\
+	WP_USER=$(WP_USER)\n\
+	WP_USER_MAIL=$(WP_USER_MAIL)\n\
+	WP_USER_PASSWORD=$(WP_USER_PASSWORD)\n\
+	WP_ADMIN=$(WP_ADMIN)\n\
+	WP_ADMIN_MAIL=$(WP_ADMIN_MAIL)\n\
+	WP_ADMIN_PASSWORD=$(WP_ADMIN_PASSWORD)\n\
+	" > ./srcs/.env
 
 mariadb_conf:
 	@echo "\
@@ -161,7 +161,7 @@ nginx_conf:
 	}\
 	" > ./srcs/requirements/nginx/conf/nginx.conf
 
-php:
+php_conf:
 	@echo "\
 	[www]\n\
 	user = www-data\n\
