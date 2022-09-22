@@ -34,7 +34,7 @@ WP_ADMIN=god
 WP_ADMIN_MAIL=god@example.com
 WP_ADMIN_PASSWORD=password
 
-all: env mariadb_conf
+all: env mariadb_conf php
 	sudo hostsed add 127.0.0.1 $(DOMAIN_NAME)
 	sudo mkdir -p $(DB_DATA_PATH) $(WP_DATA_PATH)
 	@echo "build & run"
@@ -160,3 +160,17 @@ nginx_conf:
 		}\n\
 	}\
 	" > ./srcs/requirements/nginx/conf/nginx.conf
+
+php:
+	@echo "\
+	[www]\n\
+	user = www-data\n\
+	group = www-data\n\
+	listen = $(WORDPRESS_PORT)\n\
+	pm = dynamic\n\
+	pm.max_children = 5\n\
+	pm.start_servers = 2\n\
+	pm.min_spare_servers = 1\n\
+	pm.max_spare_servers = 3\n\
+	clear_env = no\
+	" > ./srcs/requirements/wordpress/conf/www.conf

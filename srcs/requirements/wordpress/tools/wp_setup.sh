@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cd /var/www/html
+cd $WP_VOLUME
 
 wp core config --dbhost=$DB_HOST \
 				--dbname=$DB_NAME \
