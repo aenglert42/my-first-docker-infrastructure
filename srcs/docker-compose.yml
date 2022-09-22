@@ -60,8 +60,8 @@ services:
  wordpress:
   build:
    context: ${REQUIREMENTS_PATH}/wordpress
-   args:
-    - WP_VOLUME=${WP_VOLUME}
+  #  args:
+  #   - WP_VOLUME=${WP_VOLUME}
   ports:
    - ${WORDPRESS_PORT}:${WORDPRESS_PORT}
   container_name: ${WORDPRESS_CONTAINER_NAME}
