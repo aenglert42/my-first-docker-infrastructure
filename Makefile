@@ -1,9 +1,13 @@
-# include ./srcs/.env
 LOGIN=aenglert
 DOMAIN_NAME=$(LOGIN).42.fr
 NETWORK=inception
+# local directorys
 DATA_PATH=/home/$(LOGIN)/data/
 REQUIREMENTS_PATH=./requirements/
+
+CERT=/etc/ssl/certificate.pem
+KEY=/etc/ssl/privatekey.pem
+
 NGINX_CONTAINER_NAME=NGINX
 NGINX_PORT=443
 MARIADB_CONTAINER_NAME=MARIADB
@@ -46,6 +50,8 @@ env:
 	NETWORK=$(NETWORK)\n\
 	DATA_PATH=$(DATA_PATH)\n\
 	REQUIREMENTS_PATH=$(REQUIREMENTS_PATH)\n\
+	CERT=$(CERT)\n\
+	KEY=$(KEY)\n\
 	NGINX_CONTAINER_NAME=$(NGINX_CONTAINER_NAME)\n\
 	NGINX_PORT=$(NGINX_PORT)\n\
 	MARIADB_CONTAINER_NAME=$(MARIADB_CONTAINER_NAME)\n\
@@ -138,8 +144,8 @@ nginx_conf:
 	server {\n\
 		listen $(NGINX_PORT) ssl;\n\n\
 		server_name $(DOMAIN_NAME);\n\n\
-		ssl_certificate /etc/ssl/certificate.pem;\n\
-		ssl_certificate_key /etc/ssl/privatekey.pem;\n\
+		ssl_certificate $(CERT);\n\
+		ssl_certificate_key $(KEY);\n\
 		ssl_protocols TLSv1.3;\n\n\
 		root $(WP_VOLUME);\n\
 		index index.php;\n\n\
