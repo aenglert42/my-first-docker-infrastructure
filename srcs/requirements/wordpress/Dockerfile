@@ -1,6 +1,6 @@
 FROM debian:buster
 
-# EXPOSE ${WORDPRESS_PORT}
+#EXPOSE 9000
 
 RUN apt-get update -y && apt-get install -y \
 	php7.3-fpm \
