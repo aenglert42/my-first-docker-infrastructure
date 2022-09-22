@@ -23,6 +23,7 @@ services:
    args:
     - CERT=${CERT}
     - KEY=${KEY}
+    - DOMAIN_NAME=${DOMAIN_NAME}
   ports:
    - ${NGINX_PORT}:${NGINX_PORT}
   container_name: ${NGINX_CONTAINER_NAME}
