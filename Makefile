@@ -117,7 +117,7 @@ mariadb_conf:
 	user					= mysql\n\
 	pid-file				= /run/mysqld/mysqld.pid\n\
 	socket					= /run/mysqld/mysqld.sock\n\
-	port					= 3306\n\
+	port					= $(MARIADB_PORT)\n\
 	basedir					= /usr\n\
 	datadir					= $(DB_VOLUME)\n\
 	tmpdir					= /tmp\n\
