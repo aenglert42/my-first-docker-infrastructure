@@ -18,7 +18,11 @@ volumes:
 
 services:
  nginx:
-  build: ${REQUIREMENTS_PATH}/nginx
+  build:
+   context: ${REQUIREMENTS_PATH}/nginx
+   args:
+    - CERT=${CERT}
+    - KEY=${KEY}
   ports:
    - ${NGINX_PORT}:${NGINX_PORT}
   container_name: ${NGINX_CONTAINER_NAME}
