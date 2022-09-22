@@ -1,6 +1,6 @@
 FROM debian:buster
 
-EXPOSE ${MARIADB_PORT}
+#EXPOSE ${MARIADB_PORT}
 
 RUN apt-get update -y && apt-get install -y mariadb-server
 	

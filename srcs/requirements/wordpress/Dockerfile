@@ -1,6 +1,6 @@
 FROM debian:buster
 
-EXPOSE 9000
+#EXPOSE 9000
 
 RUN apt-get update -y && apt-get install -y \
 	php7.3-fpm \
@@ -25,7 +25,7 @@ RUN mv wp-cli.phar /bin/wp
 
 RUN mkdir /run/php
 
-COPY ./conf/script.sh ./script.sh
-RUN chmod +x script.sh
+COPY ./tools/wp_setup.sh ./wp_setup.sh
+RUN chmod +x wp_setup.sh
 
-CMD ["bash", "./script.sh"]
+CMD ["bash", "./wp_setup.sh"]
