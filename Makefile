@@ -57,7 +57,7 @@ clean: stop
 	echo "cleaned"
 
 fclean: clean
-	sudo docker system prune -a
+	yes | sudo docker system prune -a
 	sudo rm -rf $(DB_DATA_PATH)*
 	sudo rm -rf $(WP_DATA_PATH)*
 	sudo hostsed rm 127.0.0.1 $(DOMAIN_NAME)
@@ -66,19 +66,10 @@ re: fclean all
 
 # extra '$' needed to let the shell do the command substitution
 nuke:
-	sudo docker stop $$(sudo docker ps -qa); \
-	sudo docker rm $$(sudo docker ps -qa); \
-	sudo docker rmi -f $$(sudo docker images -qa); \
-	sudo docker volume rm $$(sudo docker volume ls -q); \
-	sudo docker network rm $$(sudo docker network ls -q) 2>/dev/null
-
-nuke2:
-	sudo rm -rf $(DB_DATA_PATH)*
-	sudo rm -rf $(WP_DATA_PATH)*
-	sudo docker stop $$(sudo docker ps -qa); \
-	sudo docker rm $$(sudo docker ps -qa); \
-	sudo docker rmi -f $$(sudo docker images -qa); \
-	sudo docker volume rm $$(sudo docker volume ls -q); \
+	sudo docker stop $$(sudo docker ps -qa)
+	sudo docker rm $$(sudo docker ps -qa)
+	sudo docker rmi -f $$(sudo docker images -qa)
+	sudo docker volume rm $$(sudo docker volume ls -q)
 	sudo docker network rm $$(sudo docker network ls -q) 2>/dev/null
 
 env:
