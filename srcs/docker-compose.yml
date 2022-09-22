@@ -33,10 +33,10 @@ services:
    - wordpress_data:${WP_VOLUME}
   depends_on:
    - wordpress
-  environment:
-   - CERT=${CERT}
-   - KEY=${KEY}
-   - DOMAIN_NAME=${DOMAIN_NAME}
+  # environment:
+  #  - CERT=${CERT}
+  #  - KEY=${KEY}
+  #  - DOMAIN_NAME=${DOMAIN_NAME}
   restart: unless-stopped
 
  mariadb:

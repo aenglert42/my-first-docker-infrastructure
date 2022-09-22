@@ -1,7 +1,5 @@
 FROM debian:buster
 
-#EXPOSE 9000
-
 RUN apt-get update -y && apt-get install -y \
 	php7.3-fpm \
 	php7.3-mysql \
@@ -11,9 +9,8 @@ RUN apt-get update -y && apt-get install -y \
 COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d
 RUN mkdir /run/php
 
-ARG WP_VOLUME=${WP_VOLUME}
+# ARG WP_VOLUME=${WP_VOLUME}
 
-# WORKDIR /var/www/html
 WORKDIR ${WP_VOLUME}
 
 RUN wget http://wordpress.org/latest.tar.gz && \
