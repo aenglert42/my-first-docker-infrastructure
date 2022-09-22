@@ -30,7 +30,7 @@ WP_ADMIN=god
 WP_ADMIN_MAIL=god@example.com
 WP_ADMIN_PASSWORD=password
 
-all: env
+all: env mariadb_conf
 	sudo hostsed add 127.0.0.1 $(DOMAIN_NAME)
 	sudo mkdir -p $(DB_DATA_PATH) $(WP_DATA_PATH)
 	@echo "build & run"
@@ -109,3 +109,25 @@ nuke2:
 	sudo docker rmi -f $$(sudo docker images -qa); \
 	sudo docker volume rm $$(sudo docker volume ls -q); \
 	sudo docker network rm $$(sudo docker network ls -q) 2>/dev/null
+
+mariadb_conf:
+	@echo "\
+	[server]\n\n\
+	[mysqld]\n\n\
+	user					= mysql\n\
+	pid-file				= /run/mysqld/mysqld.pid\n\
+	socket					= /run/mysqld/mysqld.sock\n\
+	port					= 3306\n\
+	basedir					= /usr\n\
+	datadir					= $(DB_VOLUME)\n\
+	tmpdir					= /tmp\n\
+	lc-messages-dir			= /usr/share/mysql\n\n\
+	query_cache_size		= 16M\n\n\
+	log_error				= /var/log/mysql/error.log\n\
+	expire_logs_days		= 10\n\n\
+	character-set-server	= utf8mb4\n\
+	collation-server		= utf8mb4_general_ci\n\n\
+	[embedded]\n\n\
+	[mariadb]\n\n\
+	[mariadb-10.3]\
+	" > ./srcs/requirements/mariadb/conf/50-server.cnf
