@@ -1,9 +1,10 @@
 FROM debian:buster
 
-EXPOSE ${MARIADB_PORT}
+# EXPOSE ${MARIADB_PORT}
 
 RUN apt-get update -y && apt-get install -y mariadb-server
-	
+
+# can I remove those? or pass as env and use run?
 ARG DB_NAME=${DB_NAME}
 ARG DB_USER=${DB_USER}
 ARG DB_USER_PASSWORD=${DB_USER_PASSWORD}

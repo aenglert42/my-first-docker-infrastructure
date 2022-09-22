@@ -1,6 +1,6 @@
 FROM debian:buster
 
-EXPOSE ${WORDPRESS_PORT}
+# EXPOSE ${WORDPRESS_PORT}
 
 RUN apt-get update -y && apt-get install -y \
 	php7.3-fpm \
@@ -11,6 +11,7 @@ RUN apt-get update -y && apt-get install -y \
 COPY ./conf/www.conf /etc/php/7.3/fpm/pool.d
 RUN mkdir /run/php
 
+# WORKDIR /var/www/html
 WORKDIR ${WP_VOLUME}
 
 RUN wget http://wordpress.org/latest.tar.gz && \
@@ -24,7 +25,7 @@ RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.ph
 RUN chmod +x wp-cli.phar
 RUN mv wp-cli.phar /bin/wp
 
-COPY ./conf/wp_setup.sh ./wp_setup.sh
+COPY ./tools/wp_setup.sh ./wp_setup.sh
 RUN chmod +x wp_setup.sh
 
 CMD ["bash", "./wp_setup.sh"]

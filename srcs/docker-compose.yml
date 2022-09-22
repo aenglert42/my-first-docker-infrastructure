@@ -49,7 +49,10 @@ services:
 
 
  wordpress:
-  build: ${REQUIREMENTS_PATH}/wordpress
+  build:
+   cibtext: ${REQUIREMENTS_PATH}/wordpress
+   args:
+    - ARG WP_VOLUME=${WP_VOLUME}
   ports:
    - ${WORDPRESS_PORT}:${WORDPRESS_PORT}
   container_name: ${WORDPRESS_CONTAINER_NAME}
