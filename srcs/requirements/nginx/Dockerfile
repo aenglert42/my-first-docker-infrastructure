@@ -5,7 +5,7 @@ RUN apt-get update -y && apt-get install -y \
 	nginx
 
 # Create SSl certificate and key
-RUN openssl req -newkey rsa:4096 -x509 -sha512 -days 365 -nodes -out /etc/ssl/certificate.pem -keyout /etc/ssl/privatekey.pem -subj "/CN=aenglert.42.fr"
+RUN openssl req -newkey rsa:4096 -x509 -sha512 -days 365 -nodes -out /etc/ssl/certificate.pem -keyout /etc/ssl/privatekey.pem -subj /CN=${DOMAIN_NAME}
 
 # nginx config
 COPY ./conf/nginx.conf /etc/nginx/sites-available/default

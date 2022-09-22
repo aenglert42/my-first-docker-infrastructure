@@ -131,3 +131,26 @@ mariadb_conf:
 	[mariadb]\n\n\
 	[mariadb-10.3]\
 	" > ./srcs/requirements/mariadb/conf/50-server.cnf
+
+# extra "\$" for correct echo putput
+nginx_conf:
+	@echo "\
+	server {\n\
+		listen $(NGINX_PORT) ssl;\n\n\
+		server_name $(DOMAIN_NAME);\n\n\
+		ssl_certificate /etc/ssl/certificate.pem;\n\
+		ssl_certificate_key /etc/ssl/privatekey.pem;\n\
+		ssl_protocols TLSv1.3;\n\n\
+		root $(WP_VOLUME);\n\
+		index index.php;\n\n\
+		location / {\n\
+				try_files \$$uri \$$uri/ =404;\n\
+		}\n\n\
+		location ~ \.php\$$ {\n\
+			fastcgi_pass $(WORDPRESS_CONTAINER_NAME):$(WORDPRESS_PORT);\n\
+			fastcgi_index index.php;\n\
+			fastcgi_param SCRIPT_FILENAME \$$document_root\$$fastcgi_script_name;\n\
+			include fastcgi_params;\n\
+		}\n\
+	}\
+	" > ./srcs/requirements/nginx/conf/nginx.conf
