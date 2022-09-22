@@ -77,26 +77,26 @@ mysql -h mariadb -u user -p
 ### Simple Setup
 
 #### Ensure that NGINX can be accessed by port 443 only
-
+try visiting the website using http
 #### Ensure that a SSL/TLS certificate is used
-
+show it in the browser
 #### Ensure that the WordPress website is properly installed and configured (you shouldn't see the WordPress Installation page).
 To access it, open https://login.42.fr in your browser, where login is the login of the evaluated student. You shouldn't be able to access the site via http://login.42.fr.
 
 ### Docker Basics
 
 #### Ensure that the Makefile has set up all the services via docker-compose. This means that the containers must have been built using docker-compose and that no crash happened. 
-
+```sudo docker ps```
 ### Docker Network
-
+```netstat -npl | grep -w LISTEN``` list listening sockets
 #### Simple explanation of docker-network
-
+used to establish communication between Docker containers and the outside world via the host machine
 ### NGINX with SSL/TLS
 
 #### Try to access the service via http (port 80) and verify that you cannot connect.
-
+try visiting the website using http
 #### The use of a TLS v1.2/v1.3 certificate is mandatory and must be demonstrated. The SSL/TLS certificate doesn't have to be recognized.
-
+show it in the browser
 ### WordPress with php-fpm and its volume
 
 #### add a comment using the available WordPress user
@@ -108,12 +108,15 @@ To access it, open https://login.42.fr in your browser, where login is the login
 ### MariaDB and its volume
 
 ####  explain how to login into the database
-
+```sudo docker exec -it MARIADB /bin/bash```
+```mariadb -u user -p```
 #### Ensure that you can't login into the SQL database as root with no password
+```mariadb -u root```
 
 #### Login into the SQL database with the user account and its password
 
 #### Verify that the database is not empty
+```SHOW DATABASES```
 
 ### Persistence
 
