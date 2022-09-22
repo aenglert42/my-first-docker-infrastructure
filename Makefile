@@ -1,7 +1,6 @@
 LOGIN=aenglert
 DOMAIN_NAME=$(LOGIN).42.fr
 NETWORK=inception
-# local directorys
 DATA_PATH=/home/$(LOGIN)/data/
 REQUIREMENTS_PATH=./requirements/
 
