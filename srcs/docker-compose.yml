@@ -25,6 +25,7 @@ services:
     - DOMAIN_NAME=${DOMAIN_NAME}
   ports:
    - ${NGINX_PORT}:${NGINX_PORT}
+  image: nginx
   container_name: ${NGINX_CONTAINER_NAME}
   networks:
    - ${NETWORK}
@@ -32,10 +33,6 @@ services:
    - wordpress_data:${WP_VOLUME}
   depends_on:
    - wordpress
-  # environment:
-  #  - CERT=${CERT}
-  #  - KEY=${KEY}
-  #  - DOMAIN_NAME=${DOMAIN_NAME}
   restart: unless-stopped
 
  mariadb:
@@ -48,6 +45,7 @@ services:
     - DB_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
   ports:
    - ${MARIADB_PORT}:${MARIADB_PORT}
+  image: mariadb
   container_name: ${MARIADB_CONTAINER_NAME}
   networks:
    - ${NETWORK}
@@ -63,6 +61,7 @@ services:
     - WP_VOLUME=${WP_VOLUME}
   ports:
    - ${WORDPRESS_PORT}:${WORDPRESS_PORT}
+  image: wordpress
   container_name: ${WORDPRESS_CONTAINER_NAME}
   networks:
    - ${NETWORK}
