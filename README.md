@@ -1,123 +1,35 @@
-# inception
+# my-first-docker-infrastructure
+A small Docker infrastructure using nginx to host a wordpress website. The goal of this project is to learn more about system administration. Inspired by the "42 Coding School" exercise "inception" (September 2022).
+</br>
 
-## ISO
+## Table of contents
+* [Introduction](#introduction)
+* [Prerequisites](#prerequisites)
+* [How to launch](#how-to-launch)
+* [Resources](#resources)
+* [Notes](#notes)
 
-https://www.bodhilinux.com/download/
+## Introduction
+###### <p align="right">Next: [Prerequisites](#prerequisites)&emsp;&emsp;[[Contents](#table-of-contents)]</p>
+"Text for Introduction"
+</br></br></br>
 
-in bodhi terminal: right-click -> Settings -> Behaviour -> uncheck "Bell rings"
+## Prerequisites
+###### <p align="right">Next: [How to launch](#how-to-launch)&emsp;Previous: [Introduction](#introduction)&emsp;&emsp;[[Contents](#table-of-contents)]</p>
+"Text for Prerequisites"
+</br></br></br>
 
-## VirtualBox VM settings
+## How to launch
+###### <p align="right">Next: [Resources](#resources)&emsp;Previous: [Prerequisites](#prerequisites)&emsp;&emsp;[[Contents](#table-of-contents)]</p>
+"Text for How to launch"
+</br></br></br>
 
-### General
+## Resources
+###### <p align="right">Next: [Notes](#notes)&emsp;Previous: [How to launch](#how-to-launch)&emsp;&emsp;[[Contents](#table-of-contents)]</p>
+"Text for Resources"
+</br></br></br>
 
-Linux
-Debian (64-bit)
-
-### System
-
-#### Motherboard:
-Base Memory 50% of host
-
-#### Processor:
-Processor(s) 50% of recommended (green) CPUs
-
-### Display
-
-#### Screen:
-Video Memory 100% of host
-
-### Network
-
-#### Adapter 1
-Attached to: Bridge Adapter
-
-## Packages Client
-
-sudo apt install -y openssh-client
-
-## Packages Remote Computer
-
-sudo apt update && \
-sudo apt install -y \
-openssh-server \
-docker-compose \
-git \
-hostsed
-
-Check if ssh is running: ```sudo systemctl status ssh``` has to show "active (running)". Otherwise start it manually via ```sudo systemctl start ssh```.
-
-Determine IP address of remote computer: ```ip a``` (look for inet in eth0)
-
-Check if port 22 is open: ```sudo lsof -i -P -n | grep LISTEN``` has to show ":22 (LISTEN)". If the firewallis blocking it, open it with ```sudo ufw allow 22```. Check via ```sudo ufw status``` (has to show "22 ALLOW".
-
-## Connecting
-
-```ssh remote-computer-username@remote-computer-IP-address```
-Are you sure you want to continue connecting? ```yes```
-password (doesnt show typing)
-
-## Copy SSH Key for github access
-
-on computer with SSH Key:
-```cat ~/.ssh/id_rsa | ssh remote-computer-username@remote-computer-IP-address 'umask 0077; mkdir -p .ssh; cat > .ssh/id_rsa && echo "Private Key copied"'```
-```cat ~/.ssh/id_rsa.pub | ssh remote-computer-username@remote-computer-IP-address 'umask 0077; mkdir -p .ssh; cat > .ssh/id_rsa.pub && echo "Public Key copied"'```
-
-## Useful commands
-
-systemctl restart docker
-to debug use ```docker run --rm -it 044e1532c690 /bin/sh``` (044e1532c690 would be the last successfully created image layer)
-mariadb -u root -e "SHOW DATABASES";
-mariadb -u root -e "SELECT User FROM mysql.user;"
-mariadb -u root -e "SHOW GRANTS";
-docker exec -it WORDPRESS /bin/bash
-mysql -h mariadb -u user -p
-
-## Evaluation
-
-### Simple Setup
-
-#### Ensure that NGINX can be accessed by port 443 only
-try visiting the website using http
-#### Ensure that a SSL/TLS certificate is used
-show it in the browser
-#### Ensure that the WordPress website is properly installed and configured (you shouldn't see the WordPress Installation page).
-To access it, open https://login.42.fr in your browser, where login is the login of the evaluated student. You shouldn't be able to access the site via http://login.42.fr.
-
-### Docker Basics
-
-#### Ensure that the Makefile has set up all the services via docker-compose. This means that the containers must have been built using docker-compose and that no crash happened. 
-```sudo docker ps```
-### Docker Network
-```netstat -npl | grep -w LISTEN``` list listening sockets
-#### Simple explanation of docker-network
-used to establish communication between Docker containers and the outside world via the host machine
-### NGINX with SSL/TLS
-
-#### Try to access the service via http (port 80) and verify that you cannot connect.
-try visiting the website using http
-#### The use of a TLS v1.2/v1.3 certificate is mandatory and must be demonstrated. The SSL/TLS certificate doesn't have to be recognized.
-show it in the browser
-### WordPress with php-fpm and its volume
-
-#### add a comment using the available WordPress user
-
-#### Sign in with the administrator account to access the Administration dashboard. The Admin username must not include 'admin' or 'Admin'.
-
-#### From the Administration dashboard, edit a page. Verify on the website that the page has been updated.
-
-### MariaDB and its volume
-
-####  explain how to login into the database
-```sudo docker exec -it MARIADB /bin/bash```
-```mariadb -u user -p```
-#### Ensure that you can't login into the SQL database as root with no password
-```mariadb -u root```
-
-#### Login into the SQL database with the user account and its password
-
-#### Verify that the database is not empty
-```SHOW DATABASES```
-
-### Persistence
-
-#### reboot the virtual machine. Once it has restarted, launch docker-compose again. Then, verify that everything is functional, and that both WordPress and MariaDB are configured. The changes you made previously to the WordPress website should still be here.
+## Notes
+###### <p align="right">Previous: [Resources](#resources)&emsp;&emsp;[[Contents](#table-of-contents)]</p>
+"Text for Notes"
+</br></br></br>
