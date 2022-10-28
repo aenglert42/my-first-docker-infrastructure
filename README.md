@@ -12,6 +12,7 @@ A small Docker infrastructure using nginx to host a wordpress website. The goal 
 ## Introduction
 ###### <p align="right">Next: [Prerequisites](#prerequisites)&emsp;&emsp;[[Contents](#table-of-contents)]</p>
 "Text for Introduction"
+![grafik](https://user-images.githubusercontent.com/80413516/198697523-ffd6270a-7ae5-4ea1-bce0-f1d56a59f0c7.png)
 </br></br></br>
 
 ## Prerequisites
