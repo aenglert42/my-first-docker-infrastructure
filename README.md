@@ -54,9 +54,11 @@ You can edit the variables at the top of the Makefile to customize the docker in
 </br>
 When you are done editing or don't want to make any changes, use the command ```make``` in the root directory of the repository. It will automatically run ```make init```, which will create the .env and config files and ```make start``` which will launch the docker-compose file. If you have removed any of the default user credentials from the Makefile you will now be prompted for the missing information.
 </br>
-When the containers are running, enter the url (by default: ```aenglert.42.fr```) in your browser. You will get a warning because of the self signed certificate. You will have to tell your browser that you want to open the page anyways (usually something like advanced->accept risk). Now you can surf the website (it's just the default WordPress example site). You could now go to https://aenglert.42.fr/wp-admin/ and login with the WordPress user or admin credentials to edit the website.
+When the docker containers are running, you can open the website from you host machine by entering the domain (by default: ```aenglert.42.fr```) into your browser. This works because the domain gets added to the host addresses and redirects to the loopback address. Alternatively you could also use ```localhost``` or the loopback address (```127.0.0.1```) itself.
 </br>
-Use ```make stop``` to stop the running containers and ```make fclean``` to remove all the files and directories that got created.
+At first you will get a warning from your browser because of the self signed certificate. You will have to tell your browser that you want to open the page anyway (usually something like ```advanced -> accept risk```). Now you can surf the website (it's just the default WordPress example site). You could now go to https://aenglert.42.fr/wp-admin/ and login with the WordPress user or admin credentials and edit the website.
+</br>
+Use ```make stop``` to stop the running docker containers and take down the website. Start them again by using ```make start```. ```make clean``` will remove all the created docker images and ```make fclean``` will remove all the created docker images as well as the created volumes (if you made changes to the website they will be lost, as it will get deleted). It will also remove the domain from the host addresses.
 
 
 </br></br>
