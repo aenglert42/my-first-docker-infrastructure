@@ -50,11 +50,17 @@ Setup the infrastructure as shown in the [diagram](#diagram-of-the-expected-resu
 
 ## How to launch
 ###### <p align="right">Next: [Notes](#notes)&emsp;Previous: [Prerequisites](#prerequisites)&emsp;&emsp;[[Contents](#table-of-contents)]</p>
-Use the command ```make``` in the root directory of the repository. Then enter the url (by default: ```aenglert.42.fr```) in your browser. You will get a warning because of the self signed certificate. You will have to tell your browser that you want to open the page anyways (usually something like advanced->accept risk). Now you can surf the website (it's just the default WordPress example site).
+You can edit the variables at the top of the Makefile to customize the docker infrastructure. For example you could change the port for WordPress from ```9000``` to ```9001``` by changing the line ```WORDPRESS_PORT=9000``` to ```WORDPRESS_PORT=9001```. The default values for the user credentials can be deleted or commented out, to not have them apear as plain text. In this case you will get prompted for them later in the process.
+</br>
+When you are done editing or don't want to make any changes, use the command ```make``` in the root directory of the repository. It will automatically run ```make init```, which will create the .env and config files and ```make start``` which will launch the docker-compose file. If you have removed any of the default user credentials from the Makefile you will now be prompted for the missing information.
+</br>
+When the containers are running, enter the url (by default: ```aenglert.42.fr```) in your browser. You will get a warning because of the self signed certificate. You will have to tell your browser that you want to open the page anyways (usually something like advanced->accept risk). Now you can surf the website (it's just the default WordPress example site). You could now go to https://aenglert.42.fr/wp-admin/ and login with the WordPress user or admin credentials to edit the website.
+</br>
+Use ```make stop``` to stop the running containers and ```make fclean``` to remove all the files and directories that got created.
 
 
 </br></br>
 
 ## Notes
 ###### <p align="right">Previous: [How to launch](#how-to-launch)&emsp;&emsp;[[Contents](#table-of-contents)]</p>
-ATTENTION! In a real scenario you should never have security sensitive information like for example the passwords as plain text in the Makefile!
+ATTENTION! In a real scenario you should never have security sensitive information like for example the user credentials as plain text in the Makefile! You should comment out or delete the respective lines from the Makefile to get prompted for you custom credentials.
