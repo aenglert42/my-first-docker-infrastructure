@@ -49,6 +49,7 @@ WP_USER_PASSWORD?=$(shell read -p "Please enter password for WordPress user '$(W
 
 all: init start
 
+# creates .env and config files
 init: env mariadb_conf php_conf
 	sudo hostsed add 127.0.0.1 $(DOMAIN_NAME)
 	sudo mkdir -p $(DB_DATA_PATH) $(WP_DATA_PATH)
