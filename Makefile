@@ -11,14 +11,11 @@ CERT=/etc/ssl/certificate.pem
 KEY=/etc/ssl/privatekey.pem
 
 NGINX_CONTAINER_NAME=NGINX
-NGINX_PORT=443# DEFAULT VALUE should be deleted or commented out, to get prompted for CUSTOM VALUE
-NGINX_PORT?=$(shell read -p "Please enter port for NGINX: " nxport; printf "$$nxport")
+NGINX_PORT=443
 MARIADB_CONTAINER_NAME=MARIADB
-MARIADB_PORT=3306# DEFAULT VALUE should be deleted or commented out, to get prompted for CUSTOM VALUE
-MARIADB_PORT?=$(shell read -p "Please enter port for MariaDB: " dbport; printf "$$dbport")
+MARIADB_PORT=3306
 WORDPRESS_CONTAINER_NAME=WORDPRESS
-WORDPRESS_PORT=9000# DEFAULT VALUE should be deleted or commented out, to get prompted for CUSTOM VALUE
-WORDPRESS_PORT?=$(shell read -p "Please enter port for WordPress: " wpport; printf "$$wpport")
+WORDPRESS_PORT=9000
 
 DB_DATA_PATH=$(DATA_PATH)mariadb/
 DB_VOLUME=/var/lib/mysql
@@ -26,25 +23,25 @@ DB_HOST=mariadb
 DB_NAME=wordpress_db
 DB_ROOT_PASSWORD=root
 DB_ROOT_PASSWORD?=$(shell read -p "Please enter password for MariaDB root user: " dbrootpw; printf "$$dbrootpw")
-DB_USER=user# DEFAULT VALUE should be deleted or commented out, to get prompted for CUSTOM VALUE
+DB_USER=dbuser# DEFAULT VALUE should be deleted or commented out, to get prompted for CUSTOM VALUE
 DB_USER?=$(shell read -p "Please enter username for MariaDB user: " dbuser; printf "$$dbuser")
 DB_USER_PASSWORD=password# DEFAULT VALUE should be deleted or commented out, to get prompted for CUSTOM VALUE
-DB_USER_PASSWORD?=$(shell read -p "Please enter password for MariaDB user '$(DB_USER)': " dbuserpw; printf "$$dbuserpw")
+DB_USER_PASSWORD?=$(shell read -p "Please enter password for MariaDB user: " dbuserpw; printf "$$dbuserpw")
 
 WP_DATA_PATH=$(DATA_PATH)wordpress/
 WP_VOLUME=/var/www/html
 WP_TITLE=42inception
 WP_URL=https://$(DOMAIN_NAME)
-WP_ADMIN=god# DEFAULT VALUE should be deleted or commented out, to get prompted for CUSTOM VALUE
+WP_ADMIN=wpadmin# DEFAULT VALUE should be deleted or commented out, to get prompted for CUSTOM VALUE
 WP_ADMIN?=$(shell read -p "Please enter username for WordPress admin: " wpadmin; printf "$$wpadmin")
-WP_ADMIN_MAIL=god@example.com
+WP_ADMIN_MAIL=admin@example.com
 WP_ADMIN_PASSWORD=password# DEFAULT VALUE should be deleted or commented out, to get prompted for CUSTOM VALUE
-WP_ADMIN_PASSWORD?=$(shell read -p "Please enter password for WordPress admin '$(WP_ADMIN)': " wpadminpw; printf "$$wpadminpw")
-WP_USER=user# DEFAULT VALUE should be deleted or commented out, to get prompted for CUSTOM VALUE
+WP_ADMIN_PASSWORD?=$(shell read -p "Please enter password for WordPress admin: " wpadminpw; printf "$$wpadminpw")
+WP_USER=wpuser# DEFAULT VALUE should be deleted or commented out, to get prompted for CUSTOM VALUE
 WP_USER?=$(shell read -p "Please enter username for WordPress user: " wpuser; printf "$$wpuser")
 WP_USER_MAIL=user@example.com
 WP_USER_PASSWORD=password# DEFAULT VALUE should be deleted or commented out, to get prompted for CUSTOM VALUE
-WP_USER_PASSWORD?=$(shell read -p "Please enter password for WordPress user '$(WP_USER)': " wpuserpw; printf "$$wpuserpw")
+WP_USER_PASSWORD?=$(shell read -p "Please enter password for WordPress user: " wpuserpw; printf "$$wpuserpw")
 
 
 all: init start
@@ -111,19 +108,19 @@ env:
 	DB_VOLUME=$(DB_VOLUME)\n\
 	DB_HOST=$(DB_HOST)\n\
 	DB_NAME=$(DB_NAME)\n\
+	DB_ROOT_PASSWORD=$(DB_ROOT_PASSWORD)\n\
 	DB_USER=$(DB_USER)\n\
 	DB_USER_PASSWORD=$(DB_USER_PASSWORD)\n\
-	DB_ROOT_PASSWORD=$(DB_ROOT_PASSWORD)\n\
 	WP_DATA_PATH=$(WP_DATA_PATH)\n\
 	WP_VOLUME=$(WP_VOLUME)\n\
 	WP_TITLE=$(WP_TITLE)\n\
 	WP_URL=$(WP_URL)\n\
-	WP_USER=$(WP_USER)\n\
-	WP_USER_MAIL=$(WP_USER_MAIL)\n\
-	WP_USER_PASSWORD=$(WP_USER_PASSWORD)\n\
 	WP_ADMIN=$(WP_ADMIN)\n\
 	WP_ADMIN_MAIL=$(WP_ADMIN_MAIL)\n\
 	WP_ADMIN_PASSWORD=$(WP_ADMIN_PASSWORD)\n\
+	WP_USER=$(WP_USER)\n\
+	WP_USER_MAIL=$(WP_USER_MAIL)\n\
+	WP_USER_PASSWORD=$(WP_USER_PASSWORD)\n\
 	" > ./srcs/.env
 
 mariadb_conf:
