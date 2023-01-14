@@ -11,6 +11,7 @@ A small Docker infrastructure using NGINX to host a WordPress website. The goal 
   * [Description](#description)
 * [Prerequisites](#prerequisites)
 * [How to launch](#how-to-launch)
+* [Notes](#notes)
 </br>
 
 ## Introduction
@@ -48,5 +49,12 @@ Setup the infrastructure as shown in the [diagram](#diagram-of-the-expected-resu
 </br></br>
 
 ## How to launch
-###### <p align="right">Previous: [Prerequisites](#prerequisites)&emsp;&emsp;[[Contents](#table-of-contents)]</p>
-Use the command ```make``` in the root directory of the repository. Then enter the url (by default: ```aenglert.42.fr```) in your browser. You will get a warning because of the self signed certificate. You will have to tell your browser that you want to open the page anyways (usually something like advanced->accept risk). Now you can surf the website.
+###### <p align="right">Next: [Notes](#notes)&emsp;Previous: [Prerequisites](#prerequisites)&emsp;&emsp;[[Contents](#table-of-contents)]</p>
+Use the command ```make``` in the root directory of the repository. Then enter the url (by default: ```aenglert.42.fr```) in your browser. You will get a warning because of the self signed certificate. You will have to tell your browser that you want to open the page anyways (usually something like advanced->accept risk). Now you can surf the website (it's just the default WordPress example site).
+
+
+</br></br>
+
+## Notes
+###### <p align="right">Previous: [How to launch](#how-to-launch)&emsp;&emsp;[[Contents](#table-of-contents)]</p>
+ATTENTION! In a real scenario you should never have security sensitive information like for example the passwords as plain text in the Makefile!
