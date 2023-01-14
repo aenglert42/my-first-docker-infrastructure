@@ -1,3 +1,6 @@
+# SETTINGS
+# variables can be edited to customize the docker infrastructure
+# IMPORTANT! Please delete or comment out sensitive DEFAULT VALUES to get prompted for CUSTOM VALUES!
 LOGIN=aenglert
 DOMAIN_NAME=$(LOGIN).42.fr
 NETWORK=inception
@@ -8,34 +11,49 @@ CERT=/etc/ssl/certificate.pem
 KEY=/etc/ssl/privatekey.pem
 
 NGINX_CONTAINER_NAME=NGINX
-NGINX_PORT=443
+NGINX_PORT=443# DEFAULT VALUE should be deleted or commented out, to get prompted for CUSTOM VALUE
+NGINX_PORT?=$(shell read -p "Please enter port for NGINX: " nxport; printf "$$nxport")
 MARIADB_CONTAINER_NAME=MARIADB
-MARIADB_PORT=3306
+MARIADB_PORT=3306# DEFAULT VALUE should be deleted or commented out, to get prompted for CUSTOM VALUE
+MARIADB_PORT?=$(shell read -p "Please enter port for MariaDB: " dbport; printf "$$dbport")
 WORDPRESS_CONTAINER_NAME=WORDPRESS
-WORDPRESS_PORT=9000
+WORDPRESS_PORT=9000# DEFAULT VALUE should be deleted or commented out, to get prompted for CUSTOM VALUE
+WORDPRESS_PORT?=$(shell read -p "Please enter port for WordPress: " wpport; printf "$$wpport")
 
 DB_DATA_PATH=$(DATA_PATH)mariadb/
 DB_VOLUME=/var/lib/mysql
 DB_HOST=mariadb
 DB_NAME=wordpress_db
-DB_USER=user
-DB_USER_PASSWORD=password
 DB_ROOT_PASSWORD=root
+DB_ROOT_PASSWORD?=$(shell read -p "Please enter password for MariaDB root user: " dbrootpw; printf "$$dbrootpw")
+DB_USER=user# DEFAULT VALUE should be deleted or commented out, to get prompted for CUSTOM VALUE
+DB_USER?=$(shell read -p "Please enter username for MariaDB user: " dbuser; printf "$$dbuser")
+DB_USER_PASSWORD=password# DEFAULT VALUE should be deleted or commented out, to get prompted for CUSTOM VALUE
+DB_USER_PASSWORD?=$(shell read -p "Please enter password for MariaDB user '$(DB_USER)': " dbuserpw; printf "$$dbuserpw")
 
 WP_DATA_PATH=$(DATA_PATH)wordpress/
 WP_VOLUME=/var/www/html
 WP_TITLE=42inception
 WP_URL=https://$(DOMAIN_NAME)
-WP_USER=user
-WP_USER_MAIL=user@example.com
-WP_USER_PASSWORD=password
-WP_ADMIN=god
+WP_ADMIN=god# DEFAULT VALUE should be deleted or commented out, to get prompted for CUSTOM VALUE
+WP_ADMIN?=$(shell read -p "Please enter username for WordPress admin: " wpadmin; printf "$$wpadmin")
 WP_ADMIN_MAIL=god@example.com
-WP_ADMIN_PASSWORD=password
+WP_ADMIN_PASSWORD=password# DEFAULT VALUE should be deleted or commented out, to get prompted for CUSTOM VALUE
+WP_ADMIN_PASSWORD?=$(shell read -p "Please enter password for WordPress admin '$(WP_ADMIN)': " wpadminpw; printf "$$wpadminpw")
+WP_USER=user# DEFAULT VALUE should be deleted or commented out, to get prompted for CUSTOM VALUE
+WP_USER?=$(shell read -p "Please enter username for WordPress user: " wpuser; printf "$$wpuser")
+WP_USER_MAIL=user@example.com
+WP_USER_PASSWORD=password# DEFAULT VALUE should be deleted or commented out, to get prompted for CUSTOM VALUE
+WP_USER_PASSWORD?=$(shell read -p "Please enter password for WordPress user '$(WP_USER)': " wpuserpw; printf "$$wpuserpw")
 
-all: env mariadb_conf php_conf
+
+all: init start
+
+init: env mariadb_conf php_conf
 	sudo hostsed add 127.0.0.1 $(DOMAIN_NAME)
 	sudo mkdir -p $(DB_DATA_PATH) $(WP_DATA_PATH)
+
+start:
 	@echo "build & run"
 	@cd srcs && \
 	sudo docker-compose up --build -d && \
@@ -165,3 +183,5 @@ php_conf:
 	pm.max_spare_servers = 3\n\
 	clear_env = no\
 	" > ./srcs/requirements/wordpress/conf/www.conf
+
+.PHONY: all init start stop clean fclean re eva env mariadb_conf nginx_conf php_conf
