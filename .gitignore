@@ -1,1 +1,4 @@
 .env
+50-server.cnf
+nginx.conf
+www.conf
