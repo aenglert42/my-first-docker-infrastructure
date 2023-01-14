@@ -49,4 +49,4 @@ Setup the infrastructure as shown in the [diagram](#diagram-of-the-expected-resu
 
 ## How to launch
 ###### <p align="right">Previous: [Prerequisites](#prerequisites)&emsp;&emsp;[[Contents](#table-of-contents)]</p>
-Use the command ```make``` in the root directory of the repository. Then enter the url ```aenglert.42.fr``` in your browser. You will get a warning because of the self signed certificate. You will have to tell your browser that you want to open the page anyways (usually something like advanced->accept risk). Now you can surf the website.
+Use the command ```make``` in the root directory of the repository. Then enter the url (by default: ```aenglert.42.fr```) in your browser. You will get a warning because of the self signed certificate. You will have to tell your browser that you want to open the page anyways (usually something like advanced->accept risk). Now you can surf the website.
