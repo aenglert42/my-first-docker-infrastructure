@@ -25,7 +25,7 @@ services:
     - DOMAIN_NAME=${DOMAIN_NAME}
   ports:
    - ${NGINX_PORT}:${NGINX_PORT}
-  image: nginx
+  image: ${NGINX_IMAGE_NAME}
   container_name: ${NGINX_CONTAINER_NAME}
   networks:
    - ${NETWORK}
@@ -45,7 +45,7 @@ services:
     - DB_ROOT_PASSWORD=${DB_ROOT_PASSWORD}
   ports:
    - ${MARIADB_PORT}:${MARIADB_PORT}
-  image: mariadb
+  image: ${MARIADB_IMAGE_NAME}
   container_name: ${MARIADB_CONTAINER_NAME}
   networks:
    - ${NETWORK}
@@ -61,7 +61,7 @@ services:
     - WP_VOLUME=${WP_VOLUME}
   ports:
    - ${WORDPRESS_PORT}:${WORDPRESS_PORT}
-  image: wordpress
+  image: ${WORDPRESS_IMAGE_NAME}
   container_name: ${WORDPRESS_CONTAINER_NAME}
   networks:
    - ${NETWORK}

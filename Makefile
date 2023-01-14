@@ -10,10 +10,13 @@ REQUIREMENTS_PATH=./requirements/
 CERT=/etc/ssl/certificate.pem
 KEY=/etc/ssl/privatekey.pem
 
+NGINX_IMAGE_NAME=nginx
 NGINX_CONTAINER_NAME=NGINX
 NGINX_PORT=443
+MARIADB_IMAGE_NAME=mariadb
 MARIADB_CONTAINER_NAME=MARIADB
 MARIADB_PORT=3306
+WORDPRESS_IMAGE_NAME=wordpress
 WORDPRESS_CONTAINER_NAME=WORDPRESS
 WORDPRESS_PORT=9000
 
@@ -46,11 +49,12 @@ WP_USER_PASSWORD?=$(shell read -p "Please enter password for WordPress user: " w
 
 all: init start
 
-# creates .env and config files
+# creates .env and config files and adds domain to host addresses (redirecting loopback address)
 init: env mariadb_conf nginx_conf php_conf
 	sudo hostsed add 127.0.0.1 $(DOMAIN_NAME)
 	sudo mkdir -p $(DB_DATA_PATH) $(WP_DATA_PATH)
 
+# start containers
 start:
 	@echo "build & run"
 	@cd srcs && \
@@ -58,6 +62,7 @@ start:
 	cd .. && \
 	echo "running..."
 
+# stop containers
 stop:
 	@echo "stopping..."
 	@cd srcs && \
@@ -65,6 +70,7 @@ stop:
 	cd .. && \
 	echo "stopped"
 
+# delete all images
 clean: stop
 	@echo "cleaning..."
 	@cd srcs && \
@@ -72,6 +78,7 @@ clean: stop
 	cd .. && \
 	echo "cleaned"
 
+# delete all images, remove directories and remove domain from host addresses
 fclean: clean
 	yes | sudo docker system prune -a
 	sudo rm -rf $(DB_DATA_PATH)*
@@ -98,10 +105,13 @@ env:
 	REQUIREMENTS_PATH=$(REQUIREMENTS_PATH)\n\
 	CERT=$(CERT)\n\
 	KEY=$(KEY)\n\
+	NGINX_IMAGE_NAME=$(NGINX_IMAGE_NAME)\n\
 	NGINX_CONTAINER_NAME=$(NGINX_CONTAINER_NAME)\n\
 	NGINX_PORT=$(NGINX_PORT)\n\
+	MARIADB_IMAGE_NAME=$(MARIADB_IMAGE_NAME)\n\
 	MARIADB_CONTAINER_NAME=$(MARIADB_CONTAINER_NAME)\n\
 	MARIADB_PORT=$(MARIADB_PORT)\n\
+	WORDPRESS_IMAGE_NAME=$(WORDPRESS_IMAGE_NAME)\n\
 	WORDPRESS_CONTAINER_NAME=$(WORDPRESS_CONTAINER_NAME)\n\
 	WORDPRESS_PORT=$(WORDPRESS_PORT)\n\
 	DB_DATA_PATH=$(DB_DATA_PATH)\n\
