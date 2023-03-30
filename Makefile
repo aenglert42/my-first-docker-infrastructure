@@ -2,7 +2,7 @@
 # variables can be edited to customize the docker infrastructure
 # IMPORTANT! Please delete or comment out sensitive DEFAULT VALUES to get prompted for CUSTOM VALUES!
 LOGIN=aenglert
-DOMAIN_NAME=$(LOGIN).42.fr
+DOMAIN_NAME=localhost
 NETWORK=inception
 DATA_PATH=/home/$(LOGIN)/data/
 REQUIREMENTS_PATH=./requirements/
@@ -51,7 +51,6 @@ all: init start
 
 # creates .env and config files and adds domain to host addresses (redirecting loopback address)
 init: env mariadb_conf nginx_conf php_conf
-	sudo hostsed add 127.0.0.1 $(DOMAIN_NAME)
 	sudo mkdir -p $(DB_DATA_PATH) $(WP_DATA_PATH)
 
 # start containers
@@ -83,7 +82,6 @@ fclean: clean
 	yes | sudo docker system prune -a
 	sudo rm -rf $(DB_DATA_PATH)*
 	sudo rm -rf $(WP_DATA_PATH)*
-	sudo hostsed rm 127.0.0.1 $(DOMAIN_NAME)
 
 re: fclean all
 
